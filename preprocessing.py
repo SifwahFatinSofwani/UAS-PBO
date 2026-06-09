@@ -14,7 +14,7 @@ def execution_logger(func: Callable) -> Callable:
         start_time = time.time()
         result = func(self, *args, **kwargs)
         duration = time.time() - start_time
-        print(f"[LOG] {self.__class__.__name__} selesai dalam {duration:.4f} detik")
+        print(f"{self.__class__.__name__} selesai dalam {duration:.4f} detik")
         return result
     return wrapper
 
@@ -51,7 +51,7 @@ class DuplicateRowRemover(PreprocessingStep):
         df = df.drop_duplicates()
         removed = before - len(df)
         if removed:
-            print(f"[INFO] {removed} baris duplikat dihapus.")
+            print(f"\n{removed} baris duplikat dihapus.")
         return df
 
 class EmployeeRecordConverter(PreprocessingStep):
@@ -61,7 +61,7 @@ class EmployeeRecordConverter(PreprocessingStep):
             EmployeeRecord.from_dataframe_row(row)
             for row in df.to_dict(orient="records")
         ]
-        print(f"[INFO] {len(records)} baris dikonversi ke EmployeeRecord.")
+        print(f"\n{len(records)} baris dikonversi ke EmployeeRecord.")
         for rec in records[:2]:
             print(f"  -> {rec}")
         return EmployeeRecord.records_to_dataframe(records)

@@ -58,31 +58,31 @@ def run_tests(df_clean, repo_list):
         obj = AnalysisFactory.create_analysis(name)  
         result = obj.run_analysis(df_clean)
         assert isinstance(result, pd.DataFrame), f"{name} melanggar LSP!"
-        print(f"  [V] {obj.title} -> {result.shape} - LSP OK")
+        print(f"  {obj.title} -> {result.shape} - LSP OK\n")
 
     print("\n[TEST 2] Demo ISP: SummaryStatisticsAnalysis tidak memiliki visualize")
     assert not hasattr(AnalysisFactory.create_analysis("ringkasan"), "visualize")
-    print("  [V] ISP terbukti: kelas ringkasan murni untuk terminal/report.")
+    print("  ISP terbukti: kelas ringkasan murni untuk terminal/report.\n")
 
     print("\n[TEST 3] Pengujian Error Setter Deskripsi (FormatDataTidakValidError)")
     obj = AnalysisFactory.create_analysis("stres")
     try:
         obj.description = ""
     except FormatDataTidakValidError as e:
-        print(f"  [V] Error berhasil ditangkap: {e}")
+        print(f"  Error berhasil ditangkap: {e}\n")
 
     print("\n[TEST 4] Pengujian Error Validasi AnalysisRunner")
     runner = AnalysisRunner(AnalysisFactory.create_analysis("distribusi"), repo_list)
     try:
         runner.analysis = "bukan_objek"
     except FormatDataTidakValidError as e:
-        print(f"  [V] Error berhasil ditangkap: {e}")
+        print(f"  Error berhasil ditangkap: {e}\n")
         
     print("\n[TEST 5] Pengujian Error Key Analisis Tidak Ditemukan")
     try:
         AnalysisFactory.create_analysis("key_acak_tidak_valid")
     except FormatDataTidakValidError as e:
-        print(f"  [V] Error berhasil ditangkap: {e}")
+        print(f"  Error berhasil ditangkap: {e}\n")
 
     print("\n[TEST 6] Pengujian Error Validasi Model Data")
     try:
@@ -92,7 +92,7 @@ def run_tests(df_clean, repo_list):
             age=-5, gender="Male", hours_worked=-10, resource_access="Yes", sleep_quality="Good"
         )
     except FormatDataTidakValidError as e:
-        print(f"  [V] Error data tidak valid berhasil ditangkap: {e}")
+        print(f"  Error data tidak valid berhasil ditangkap: {e}\n")
 
     print("\n=== PENGUJIAN SELESAI ===")
 
@@ -119,7 +119,7 @@ def main():
     
     try:
         df_clean = pipeline.execute(raw_df)
-        print(f"\n[OK] Pipeline selesai. Baris siap dianalisis : {df_clean.shape[0]}")
+        print(f"\nPipeline selesai. Baris siap dianalisis : {df_clean.shape[0]}\n")
         pause_and_clear()
     except Exception as e:
         print(f"[ERROR] Pipeline gagal: {e}")
@@ -172,7 +172,7 @@ def main():
                             analisis_obj.visualize(hasil)
                             pause_and_clear()
                         else:
-                            print(f"\n[INFO] {key} tidak mendukung visualisasi.")
+                            print(f"\n{key} tidak mendukung visualisasi.\n")
                             pause_and_clear()
                     except Exception as e:
                         print(f"[ERROR] Gagal visualisasi: {e}")
