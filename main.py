@@ -2,6 +2,7 @@ import sys
 import subprocess
 import importlib
 import os
+import pandas as pd
 
 def pastikan_terinstal(package_name, import_name=None):
     if import_name is None:

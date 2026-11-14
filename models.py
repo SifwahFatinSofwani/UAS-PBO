@@ -1,7 +1,7 @@
 import pandas as pd
 from typing import List
 from dataclasses import dataclass
-
+import numpy as np
 class AnalisisDataError(Exception):
     pass
 
