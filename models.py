@@ -2,6 +2,8 @@ import pandas as pd
 from typing import List
 from dataclasses import dataclass
 import numpy as np
+
+int = 10
 class AnalisisDataError(Exception):
     pass
 
